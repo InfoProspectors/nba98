@@ -23,6 +23,13 @@ python city.py
 ```bash
 python main.py
 ```
+##### 3.爬取结果
+
+##### 1.[省级数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/json/province/)
+##### 2.[市级数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/json/city/)
+##### 3.[区县数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/json/area/)
+
+
 
 #### 参与贡献
 

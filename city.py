@@ -42,7 +42,7 @@ def get_province(index_href):
             # 市级
             get_city(province_href, province_code)
     print('抓取省份信息结束！')
-    file = open('json/province.json', 'w', encoding='utf-8')
+    file = open('json/location/province.json', 'w', encoding='utf-8')
     json.dump(province_list, file, ensure_ascii=False)
     file.close()
 
@@ -59,8 +59,8 @@ def get_city(province_href, province_code):
     city_html_text = str(request.text)
     soup = BeautifulSoup(city_html_text, "html.parser")
     city_tr_list = soup.select('.citytr')
-    if os.path.exists('json/city.json'):
-        file = open('json/city.json', 'r', encoding='utf-8')
+    if os.path.exists('json/location/city.json'):
+        file = open('json/location/city.json', 'r', encoding='utf-8')
         city_data = json.load(file)
         file.close()
     else:
@@ -82,7 +82,7 @@ def get_city(province_href, province_code):
             get_area(city_href, city_code)
     city_data.setdefault(province_code, city_list)
     print('抓取市级城市结束！')
-    file = open('json/city.json', 'w', encoding='utf-8')
+    file = open('json/location/city.json', 'w', encoding='utf-8')
     json.dump(city_data, file, ensure_ascii=False)
     file.close()
 
@@ -99,8 +99,8 @@ def get_area(city_href, city_code):
     area_html_text = str(request.text)
     soup = BeautifulSoup(area_html_text, "html.parser")
     area_tr_list = soup.select('.countytr')
-    if os.path.exists('json/area.json'):
-        file = open('json/area.json', 'r', encoding='utf-8')
+    if os.path.exists('json/location/area.json'):
+        file = open('json/location/area.json', 'r', encoding='utf-8')
         area_data = json.load(file)
         file.close()
     else:
@@ -119,7 +119,7 @@ def get_area(city_href, city_code):
             print('已写入区级：', area_info)
     area_data.setdefault(city_code, area_list)
     print('抓取区级信息结束！')
-    file = open('json/area.json', 'w', encoding='utf-8')
+    file = open('json/location/area.json', 'w', encoding='utf-8')
     json.dump(area_data, file, ensure_ascii=False)
     file.close()
 
@@ -128,7 +128,7 @@ def get_area(city_href, city_code):
 if __name__ == "__main__":
     url = 'http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2020/'
     # 创建json目录
-    json_folder = 'json/'
+    json_folder = 'json/location/'
     if not os.path.exists(json_folder):
         os.makedirs(json_folder)
     get_province('index.html')
