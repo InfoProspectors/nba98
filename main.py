@@ -24,7 +24,7 @@ def _openjson(dirName, filepath):
 
 def _requests(dirName, name):
     print('开始爬取' + name + '小姐姐数据')
-    request = requests.get(url='http://nba98.top/yd/ydajax/GetInfoListByKey?type=1&pageNo=1&pageSize=20000',
+    request = requests.get(url='http://nba98.top/yd/ydajax/GetInfoListByKey?type=1&pageNo=1&pageSize=2000',
                            params={'k': name})
     json_text = str(request.text)
     if os.path.exists(os.path.join('./json/' + dirName + '/' + name + '.json')) == False:
