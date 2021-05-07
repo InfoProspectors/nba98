@@ -12,20 +12,34 @@ def _readfile(path):
 
 def _openjson(dirName, filepath):
     jsonpath = './json/' + dirName
+    filepath = './json/location/province.json'
     if not os.path.exists(jsonpath):
         print('不存在' + jsonpath + '文件夹将创建')
         os.makedirs(jsonpath)
     with open(filepath, 'r', encoding='utf-8') as load_f:
         load_dict = json.load(load_f)
-        for i in load_dict:
-            for k in load_dict[i]:
-                _requests(dirName, load_dict[i][k]['name'])
+        print(filepath)
+        if 'province' in filepath:
+            # 省级json数据需要单独处理
+            for i in load_dict:
+                print(load_dict[i]['name'])
+                _requests(dirName, load_dict[i]['name'])
+        else:
+            for i in load_dict:
+                for k in load_dict[i]:
+                    _requests(dirName, load_dict[i][k]['name'])
 
 
 def _requests(dirName, name):
     print('开始爬取' + name + '小姐姐数据')
-    request = requests.get(url='http://nba98.top/yd/ydajax/GetInfoListByKey?type=1&pageNo=1&pageSize=2000',
-                           params={'k': name})
+    request = requests.get(url='http://nba98.top/yd/ydajax/GetInfoListByKey/',
+                           params={
+                               'type': 1,
+                               'pageNo': 1,
+                               'pageSize': 2000,
+                               'k': name
+                           }
+                           )
     json_text = str(request.text)
     if os.path.exists(os.path.join('./json/' + dirName + '/' + name + '.json')) == False:
         print(os.path.join(name + '.json') + '文件不存在,自动创建')
