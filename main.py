@@ -12,17 +12,14 @@ def _readfile(path):
 
 def _openjson(dirName, filepath):
     jsonpath = './json/' + dirName
-    filepath = './json/location/province.json'
     if not os.path.exists(jsonpath):
         print('不存在' + jsonpath + '文件夹将创建')
         os.makedirs(jsonpath)
     with open(filepath, 'r', encoding='utf-8') as load_f:
         load_dict = json.load(load_f)
-        print(filepath)
         if 'province' in filepath:
             # 省级json数据需要单独处理
             for i in load_dict:
-                print(load_dict[i]['name'])
                 _requests(dirName, load_dict[i]['name'])
         else:
             for i in load_dict:
@@ -32,13 +29,14 @@ def _openjson(dirName, filepath):
 
 def _requests(dirName, name):
     print('开始爬取' + name + '小姐姐数据')
-    request = requests.get(url='http://nba98.top/yd/ydajax/GetInfoListByKey/',
-                           params={
-                               'type': 1,
-                               'pageNo': 1,
-                               'pageSize': 2000,
-                               'k': name
-                           }
+    url = 'http://nba98.top/yd/ydajax/GetInfoListByKey'
+    params = {
+        'type': 1,
+        'pageNo': 1,
+        'pageSize': 2000,
+        'k': name
+    }
+    request = requests.get(url, params
                            )
     json_text = str(request.text)
     if os.path.exists(os.path.join('./json/' + dirName + '/' + name + '.json')) == False:
@@ -48,7 +46,8 @@ def _requests(dirName, name):
         file.write(json_text)
         file.close()
         print(os.path.join(name + '.json') + '文件创建并写入成功')
-
+    else:
+        print(os.path.join(name + '.json') + '文件存在,将跳过写入')
 
 if __name__ == '__main__':
     path = './json/location/'
