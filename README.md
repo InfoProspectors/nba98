@@ -1,7 +1,7 @@
 # nba98爬虫
 
 #### 介绍
-将nba98的信息爬取并保存为json和excel文件,可以爬取大到省市区,小到街道居民楼的小姐姐信息,也许她就在你的身边,也许她就是你的女神~
+将nba98的信息爬取并保存为json和xls文件,可以爬取大到省市区,小到街道居民楼的小姐姐信息,也许她就在你的身边,也许她就是你的女神~
 
 #### 软件架构
 python
@@ -23,11 +23,16 @@ python city.py
 ```bash
 python main.py
 ```
-##### 3.爬取结果
+##### 3.爬取json结果
 
-##### 1.[省级数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/json/province/)
-##### 2.[市级数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/json/city/)
-##### 3.[区县数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/json/area/)
+##### 1.[省级json数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/json/province/)
+##### 2.[市级json数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/json/city/)
+##### 3.[区县json数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/json/area/)
+
+##### 3.爬取xls结果
+##### 1.[省级json数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/xls/province/)
+##### 2.[市级json数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/xls/city/)
+##### 3.[区县json数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/xls/area/)
 
 
 

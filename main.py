@@ -41,8 +41,7 @@ def _requests(dirName, name):
         'pageSize': 2000,
         'k': name
     }
-    request = requests.get(url, params
-                           )
+    request = requests.get(url, params)
     json_text = str(request.text)
     if os.path.exists(os.path.join('./json/' + dirName + '/' + name + '.json')) == False:
         print(os.path.join(name + '.json') + '文件不存在,自动创建')
@@ -79,7 +78,7 @@ def _savexsl(dirName, name):
             else:
                 print(os.path.join(name + '.xsl') + '文件存在,将跳过写入xsl')
         else:
-            print(os.path.join('./json/' + dirName + '/' + name + '.json')+"数据为空,不写入xsl")
+            print(os.path.join('./json/' + dirName + '/' + name + '.json') + "数据为空,不写入xsl")
 
 
 if __name__ == '__main__':
