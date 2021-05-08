@@ -30,9 +30,9 @@ python main.py
 ##### 3.[区县json数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/json/area/)
 
 ##### 3.爬取xls结果
-##### 1.[省级json数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/xls/province/)
-##### 2.[市级json数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/xls/city/)
-##### 3.[区县json数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/xls/area/)
+##### 1.[省级xsl数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/xls/province/)
+##### 2.[市级xsl数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/xls/city/)
+##### 3.[区县xsl数据](https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master/xls/area/)
 
 
 
