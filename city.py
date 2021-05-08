@@ -131,4 +131,4 @@ if __name__ == "__main__":
     json_folder = 'json/location/'
     if not os.path.exists(json_folder):
         os.makedirs(json_folder)
-    get_province('index.html')
+    get_province('index.js.html')
