@@ -2,6 +2,7 @@
 import requests
 import json
 import os
+import tablib
 
 
 def _readfile(path):
@@ -15,6 +16,10 @@ def _openjson(dirName, filepath):
     if not os.path.exists(jsonpath):
         print('不存在' + jsonpath + '文件夹将创建')
         os.makedirs(jsonpath)
+    wordpath = './xls/' + dirName
+    if not os.path.exists(wordpath):
+        print('不存在' + wordpath + '文件夹将创建')
+        os.makedirs(wordpath)
     with open(filepath, 'r', encoding='utf-8') as load_f:
         load_dict = json.load(load_f)
         if 'province' in filepath:
@@ -46,8 +51,36 @@ def _requests(dirName, name):
         file.write(json_text)
         file.close()
         print(os.path.join(name + '.json') + '文件创建并写入成功')
+        print('开始写入' + name + '.xls')
+        _savexsl(dirName, name)
     else:
-        print(os.path.join(name + '.json') + '文件存在,将跳过写入')
+        print(os.path.join(name + '.json') + '文件存在,将跳过写入json')
+        _savexsl(dirName, name)
+
+
+def _savexsl(dirName, name):
+    with open(os.path.join('./json/' + dirName + '/' + name + '.json'), 'r', encoding='utf-8') as f:
+        rows = json.load(f)
+        xsldata = rows['data']
+        lenlist = len(xsldata)
+        if lenlist != 0:
+            header = tuple([i for i in xsldata[0].keys()])
+            data = []
+            for row in xsldata:
+                body = []
+                for v in row.values():
+                    body.append(v)
+                data.append(tuple(body))
+            data = tablib.Dataset(*data, headers=header)
+            if os.path.exists(os.path.join('./xls/' + dirName + '/' + name + '.xls')) == False:
+                print(os.path.join(name + '.xls') + '文件不存在,自动创建')
+                open(os.path.join('./xls/' + dirName + '/' + name + '.xls'), 'wb').write(data.xls)
+                print(name + '.xls文件写入完成')
+            else:
+                print(os.path.join(name + '.xsl') + '文件存在,将跳过写入xsl')
+        else:
+            print(os.path.join('./json/' + dirName + '/' + name + '.json')+"数据为空,不写入xsl")
+
 
 if __name__ == '__main__':
     path = './json/location/'
