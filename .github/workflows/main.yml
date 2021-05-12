@@ -19,7 +19,7 @@ jobs:
     - name: 'Install dependencies'
       run: pip install -r requirements.txt
     - name: '删除json xls 文件'
-      run: rm rf json xls
+      run: rm -rf json xls
     - name: '开始运行'
       run: python main.py
     - name: 'git配置'
