@@ -38,4 +38,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
         with:
-          args: BingImage
+          args: nba98
