@@ -1,4 +1,4 @@
-name: main
+name: 爬虫计划任务
 
 on:
   push:
@@ -11,28 +11,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout actions
-    - uses: actions/checkout@v1
-
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v1
+    - uses: actions/checkout@v2
+    - name: '初始化Python'
+      uses: actions/setup-python@v2
       with:
         python-version: 3.7
-
-    - name: Update paper list
-      run: |
-        pip install -r requirements.txt
-        rm rf json xls
-        python main.py
-
-    - name: commit
+    - name: 'Install dependencies'
+      run: pip install -r requirements.txt
+    - name: '删除json xls 文件'
+      run: rm rf json xls
+    - name: '开始运行'
+      run: python main.py
+    - name: 'git配置'
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add .
-        git commit -m "Add changes" -a
+        git commit -m "update" -a
 
-    - name: Push changes
+    - name: '提交'
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.token }}
