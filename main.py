@@ -4,7 +4,8 @@ import json
 import os
 import tablib
 import threading
-
+import datetime
+import time
 def _readfile(path):
     files = os.listdir(path)
     for filename in files:
@@ -30,54 +31,71 @@ def _openjson(dirName, filepath):
             # 省级json数据需要单独处理
             for i in load_dict:
                 province.append(load_dict[i]['name'])
+                _requests(dirName, load_dict[i]['name'])
         elif 'city' in filepath:
             for i in load_dict:
                 for k in load_dict[i]:
                     city.append(load_dict[i][k]['name'])
+                    _requests(dirName,load_dict[i][k]['name'])
         else:
             for i in load_dict:
                 for k in load_dict[i]:
                     area.append(load_dict[i][k]['name'])
-    threads = [threading.Thread(target=_requests, args=('province',name, )) for name in province]
-    for t in threads:
-        t.start()  # 启动一个线程
-    for t in threads:
-        t.join()  # 等待每个线程执行结束
-    threads2 = [threading.Thread(target=_requests, args=('city', name,)) for name in city]
-    for c in threads2:
-        c.start()  # 启动一个线程
-    for c in threads2:
-        c.join()  # 等待每个线程执行结束
-    threads3 = [threading.Thread(target=_requests, args=('area', name,)) for name in area]
-    for j in threads3:
-        j.start()  # 启动一个线程
-    for j in threads3:
-        j.join()  # 等待每个线程执行结束
+                    _requests(dirName, load_dict[i][k]['name'])
+    # threads = [threading.Thread(target=_requests, args=('province',name, )) for name in province]
+    # for t in threads:
+    #     t.start()  # 启动一个线程
+    # for t in threads:
+    #     t.join()  # 等待每个线程执行结束
+    # threads2 = [threading.Thread(target=_requests, args=('city', name,)) for name in city]
+    # for c in threads2:
+    #     c.start()  # 启动一个线程
+    # for c in threads2:
+    #     c.join()  # 等待每个线程执行结束
+    # threads3 = [threading.Thread(target=_requests, args=('area', name,)) for name in area]
+    # for j in threads3:
+    #     j.start()  # 启动一个线程
+    # for j in threads3:
+    #     j.join()  # 等待每个线程执行结束
 
 def _requests(dirName, name):
     print('开始爬取' + name + '小姐姐数据')
-    url = 'http://nba98.top/yd/ydajax/GetInfoListByKey'
-    params = {
-        'type': 1,
-        'pageNo': 1,
-        'pageSize': 2000,
-        'k': name
+    url = 'http://nba98.top/yd/ydajax/GetInfoListByKey?type=1&pageNo=1&pageSize=2000&k='+name
+    headers = {
+        'content-type': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36'
     }
-    request = requests.get(url, params, timeout=200)
-    json_text = str(request.text)
-    if os.path.exists(os.path.join('./json/' + dirName + '/' + name + '.json')) == False:
-        print(os.path.join(name + '.json') + '文件不存在,自动创建')
-        # print('待写入小姐姐数据' + name, json_text)
-        file = open(os.path.join('./json/' + dirName + '/' + name + '.json'), 'w', encoding="utf-8")
-        file.write(json_text)
-        file.close()
-        print(os.path.join(name + '.json') + '文件创建并写入成功')
-        print('开始写入' + name + '.xls')
-        _savexsl(dirName, name)
-    else:
-        print(os.path.join(name + '.json') + '文件存在,将跳过写入json')
-        _savexsl(dirName, name)
-
+    keep = True
+    maxtimes = 15
+    count = 0
+    print(datetime.datetime.now(),name)
+    while keep and count < maxtimes:
+        try:
+            request = requests.get(url, headers, timeout=(3.05, 27))
+            print('爬取成功' + str(count) + name)
+            print(request)
+            json_text = str(request.text)
+            if os.path.exists(os.path.join('./json/' + dirName + '/' + name + '.json')) == False:
+                print(os.path.join(name + '.json') + '文件不存在,自动创建')
+                # print('待写入小姐姐数据' + name, json_text)
+                file = open(os.path.join('./json/' + dirName + '/' + name + '.json'), 'w', encoding="utf-8")
+                file.write(json_text)
+                file.close()
+                print(os.path.join(name + '.json') + '文件创建并写入成功')
+                print('开始写入' + name + '.xls')
+                _savexsl(dirName, name)
+            else:
+                print(os.path.join(name + '.json') + '文件存在,将跳过写入json')
+                _savexsl(dirName, name)
+            keep = False
+        except Exception as e:
+            print(datetime.datetime.now(),name)
+            # 延时10s后重试
+            time.sleep(10)
+            count = count + 1
+            print('重试' + str(count) +name)
+            print(url)
+    print(datetime.datetime.now())
 
 def _savexsl(dirName, name):
     with open(os.path.join('./json/' + dirName + '/' + name + '.json'), 'r', encoding='utf-8') as f:
