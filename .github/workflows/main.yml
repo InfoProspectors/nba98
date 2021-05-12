@@ -33,3 +33,9 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.token }}
+    - name: '创建发布版本'
+        uses: elgohr/Github-Release-Action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+        with:
+          args: BingImage
