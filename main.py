@@ -63,7 +63,7 @@ def _requests(dirName, name):
         'pageSize': 2000,
         'k': name
     }
-    request = requests.get(url, params, timeout=16)
+    request = requests.get(url, params, timeout=200)
     json_text = str(request.text)
     if os.path.exists(os.path.join('./json/' + dirName + '/' + name + '.json')) == False:
         print(os.path.join(name + '.json') + '文件不存在,自动创建')
