@@ -6,10 +6,10 @@ on:
     types: started
   schedule:
     - cron: "0 23 * * *"
-jobs:
-  Cloudbase:
-    runs-on: ubuntu-20.04
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
     steps:
     - name: checkout actions
     - uses: actions/checkout@v1
@@ -21,9 +21,9 @@ jobs:
 
     - name: Update paper list
       run: |
-         pip install -r requirements.txt
-         rm rf json xls
-         python main.py
+        pip install -r requirements.txt
+        rm rf json xls
+        python main.py
 
     - name: commit
       run: |
