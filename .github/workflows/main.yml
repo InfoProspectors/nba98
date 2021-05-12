@@ -28,14 +28,13 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git add .
         git commit -m "update" -a
-
     - name: '提交'
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.token }}
     - name: '创建发布版本'
-        uses: elgohr/Github-Release-Action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.token }}
-        with:
-          args: nba98
+      uses: elgohr/Github-Release-Action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.token }}
+      with:
+        args: nba98
