@@ -38,7 +38,7 @@ def get_province(index_href):
             province_info = {'code': province_code, 'name': province_name}
             province_list.setdefault(province_key, province_info)
             province_key += 1
-            print('已写入省级：', province_info)
+            # print('已写入省级：', province_info)
             # 市级
             get_city(province_href, province_code)
     print('抓取省份信息结束！')
@@ -77,7 +77,7 @@ def get_city(province_href, province_code):
             city_info = {'code': city_code, 'name': city_name}
             city_list.setdefault(city_key, city_info)
             city_key += 1
-            print('已写入市级：', city_info)
+            # print('已写入市级：', city_info)
             # 区级
             get_area(city_href, city_code)
     city_data.setdefault(province_code, city_list)
@@ -116,7 +116,7 @@ def get_area(city_href, city_code):
             area_info = {'code': area_code, 'name': area_name}
             area_list.setdefault(area_key, area_info)
             area_key += 1
-            print('已写入区级：', area_info)
+            # print('已写入区级：', area_info)
     area_data.setdefault(city_code, area_list)
     print('抓取区级信息结束！')
     file = open('json/location/area.json', 'w', encoding='utf-8')

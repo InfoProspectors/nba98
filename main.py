@@ -3,7 +3,7 @@ import requests
 import json
 import os
 import tablib
-
+import threading
 
 def _readfile(path):
     files = os.listdir(path)
@@ -12,6 +12,9 @@ def _readfile(path):
 
 
 def _openjson(dirName, filepath):
+    area=[]
+    city= []
+    province= []
     jsonpath = './json/' + dirName
     if not os.path.exists(jsonpath):
         print('不存在' + jsonpath + '文件夹将创建')
@@ -21,16 +24,35 @@ def _openjson(dirName, filepath):
         print('不存在' + wordpath + '文件夹将创建')
         os.makedirs(wordpath)
     with open(filepath, 'r', encoding='utf-8') as load_f:
+
         load_dict = json.load(load_f)
         if 'province' in filepath:
             # 省级json数据需要单独处理
             for i in load_dict:
-                _requests(dirName, load_dict[i]['name'])
+                province.append(load_dict[i]['name'])
+        elif 'city' in filepath:
+            for i in load_dict:
+                for k in load_dict[i]:
+                    city.append(load_dict[i][k]['name'])
         else:
             for i in load_dict:
                 for k in load_dict[i]:
-                    _requests(dirName, load_dict[i][k]['name'])
-
+                    area.append(load_dict[i][k]['name'])
+    threads = [threading.Thread(target=_requests, args=('province',name, )) for name in province]
+    for t in threads:
+        t.start()  # 启动一个线程
+    for t in threads:
+        t.join()  # 等待每个线程执行结束
+    threads2 = [threading.Thread(target=_requests, args=('city', name,)) for name in city]
+    for c in threads2:
+        c.start()  # 启动一个线程
+    for c in threads2:
+        c.join()  # 等待每个线程执行结束
+    threads3 = [threading.Thread(target=_requests, args=('area', name,)) for name in area]
+    for j in threads3:
+        j.start()  # 启动一个线程
+    for j in threads3:
+        j.join()  # 等待每个线程执行结束
 
 def _requests(dirName, name):
     print('开始爬取' + name + '小姐姐数据')
@@ -41,11 +63,11 @@ def _requests(dirName, name):
         'pageSize': 2000,
         'k': name
     }
-    request = requests.get(url, params)
+    request = requests.get(url, params, timeout=16)
     json_text = str(request.text)
     if os.path.exists(os.path.join('./json/' + dirName + '/' + name + '.json')) == False:
         print(os.path.join(name + '.json') + '文件不存在,自动创建')
-        print('待写入小姐姐数据' + name, json_text)
+        # print('待写入小姐姐数据' + name, json_text)
         file = open(os.path.join('./json/' + dirName + '/' + name + '.json'), 'w', encoding="utf-8")
         file.write(json_text)
         file.close()

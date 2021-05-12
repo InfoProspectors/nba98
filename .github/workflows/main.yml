@@ -12,29 +12,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: '初始化Python'
+    - name: 'use Python'
       uses: actions/setup-python@v2
       with:
         python-version: 3.7
     - name: 'Install dependencies'
       run: pip install -r requirements.txt
-    - name: '删除json xls 文件'
+    - name: 'rm json xls'
       run: rm -rf json xls
-    - name: '开始运行'
+    - name: 'run python'
       run: python main.py
-    - name: 'git配置'
+    - name: 'git config'
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add .
-        git commit -m "update" -a
-    - name: '提交'
+        git commit -m "update"
+    - name: 'push'
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.token }}
-    - name: '创建发布版本'
+    - name: 'create release'
       uses: elgohr/Github-Release-Action@master
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
       with:
         args: nba98
+    - name: Sync to Gitee
+      uses: wearerequired/git-mirror-action@master
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
+      with:
+        source-repo: ${{ secrets.source }}
+        destination-repo: ${{ secrets.destination }}
+
+      - name: Build Gitee Pages
+        uses: yanglbme/gitee-pages-action@master
+        with:
+          gitee-username: ${{ secrets.user }}
+          gitee-password: ${{ secrets.GITEE_PASSWORD }}
+          gitee-repo: ${{ secrets.repo }}
