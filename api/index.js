@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000
+const host = process.env.HOST || ''
 const path = require('path')
 const fs = require('fs')
 const multiparty = require("multiparty")
@@ -29,6 +30,7 @@ function readDir(url, Callback) {
         Callback(err, data)
     })
 }
+
 // 重命名
 function rename(arr, name, num = 1) {
     if (!arr.includes(name)) {
@@ -89,7 +91,7 @@ app.post("/api/pushFiles", (req, res) => {
                 arr.push(item.originalFilename)
             });
             let obj = {
-                files:arr
+                files: arr
             }
             res.send(JSON.stringify(arr))
         })
@@ -119,7 +121,9 @@ app.post("/api/deleteFiles", (req, res) => {
     }
     res.send(JSON.stringify("删除成功！"))
 })
-
-app.listen(port, () => {
-    console.log(`打开成功 端口号为${port}`);
+app.server = app.listen(port, host, () => {
+    console.log(`server running  http://${host ? host : 'localhost'}:${port}`)
 })
+const baseUrl = `http://${host ? host : 'localhost'}:${port}/`
+
+console.log("baseUrl",baseUrl)

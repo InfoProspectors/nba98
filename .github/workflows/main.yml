@@ -1,0 +1,38 @@
+name: main
+
+on:
+  push:
+  watch:
+    types: started
+  schedule:
+    - cron: "0 23 * * *"
+jobs:
+  Cloudbase:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: checkout actions
+    - uses: actions/checkout@v1
+
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+
+    - name: Update paper list
+      run: |
+         pip install -r requirements.txt
+         rm rf json xls
+         python main.py
+
+    - name: commit
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add .
+        git commit -m "Add changes" -a
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.token }}

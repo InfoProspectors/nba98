@@ -1,6 +1,7 @@
 // 部署修改地址
-let baseUrl = 'http://localhost:3000/'
-let api = baseUrl + 'api/'
+import {baseUrl} from "../../index"
+console.log("baseUrl",baseUrl)
+let api =+  host+port +'api/'
 
 function ajax(options, Callback) {
     var xhr = null;

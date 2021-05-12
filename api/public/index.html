@@ -6,28 +6,77 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>文件上传</title>
-    <link rel="shortcut icon" href="./images/bitbug_favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="./images/bitbug_favicon.ico" type="image/x-icon"/>
     <link type="text/css" rel="stylesheet" href="./css/Global.css">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 
 <body>
-    <div class="head">
-        <h1><img src="./images/files.png" alt="文件夹"><a href="https://love.xxgcteam.com/">题库上传 By Lu</a></h1>
-    </div>
-    <div class="mainBox">
-        <form class="upload" action="upload" enctype="multipart/form-data">
-            <input type="submit" value="上 传">
-            <input type="file" accept=".txt" name="fs"  multiple="multiple">
-        </form>
-        <ul>
-        </ul>
-        <div class="bottomBox">
-            <button class="delete" onclick="butDelete()">删除</button>
-            <button class="check" onclick="inputAll()">反选</button>
-        </div>
+<div class="head">
+    <h1><img src="./images/files.png" alt="文件夹"><a href="./">文件列表</a></h1>
+</div>
+<div class="mainBox" id="mainBox">
+    <el-container style="height: 500px; border: 1px solid #eee">
+        <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+            <el-menu :default-openeds="['province']">
+                <el-submenu index="province">
+                    <template slot="title"><i class="el-icon-message"></i>省级</template>
+                    <el-menu-item-group v-for="item in province">
+                        <el-menu-item :index="item.code">{{item.name}}</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-submenu index="city">
+                    <template slot="title"><i class="el-icon-message"></i>市级</template>
+                    <el-menu-item-group v-for="(item,key) in city">
+                        <el-submenu :index="key+item.code" v-for="item2 in item">
+                            <el-menu-item :index="item2.code+item.code">{{item2.name}}</el-menu-item>
+                        </el-submenu>
+                    </el-menu-item-group>
 
-    </div>
-    <script src="./js/index.js"></script>
+                </el-submenu>
+                <el-submenu index="area">
+                    <template slot="title"><i class="el-icon-message"></i>区级</template>
+                    <el-menu-item-group v-for="item in area">
+                        <el-submenu :index="item.code" v-for="item2 in item">
+                            <el-menu-item :index="item2.code+item.code">{{item2.name}}</el-menu-item>
+                        </el-submenu>
+                    </el-menu-item-group>
+                </el-submenu>
+            </el-menu>
+        </el-aside>
+
+        <el-container>
+            <el-header style="text-align: right; font-size: 12px">
+                <el-dropdown>
+                    <i class="el-icon-setting" style="margin-right: 15px"></i>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item>查看</el-dropdown-item>
+                        <el-dropdown-item>新增</el-dropdown-item>
+                        <el-dropdown-item>删除</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+                <span>王小虎</span>
+            </el-header>
+
+            <el-main>
+                <el-table :data="tableData">
+                    <el-table-column prop="date" label="日期" width="140">
+                    </el-table-column>
+                    <el-table-column prop="name" label="姓名" width="120">
+                    </el-table-column>
+                    <el-table-column prop="address" label="地址">
+                    </el-table-column>
+                </el-table>
+            </el-main>
+        </el-container>
+    </el-container>
+</div>
+<script src="./js/main.js"></script>
 </body>
 
 </html>
