@@ -47,14 +47,13 @@ a {
 }
 
 .mainBox {
-    width: 50%;
-    height: auto;
+    /*width: 100vh;*/
+    /*height: 100vh;*/
     margin: 0 auto;
     position: relative;
     min-width: 400px;
     padding: 20px;
     box-shadow: 0 0 5px 5px var(--shadow);
-    max-height: 80%;
     overflow-y: scroll;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -142,4 +141,12 @@ a {
         width: 100%;
         box-sizing: border-box;
     }
+}
+
+#c_td{
+    max-width:10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
 }
