@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="referrer" content="never">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="keywords" content="qm 凤楼 楼凤 约炮 小姐 桑拿 爱爱 打飞机 约会 qm 凤楼 yuepao 小姐 桑拿 爱爱 打飞机 你懂的 全国 qm 凤楼  小姐 桑拿 爱爱 打飞机">
@@ -24,7 +25,7 @@
     <h1><img src="./images/files.png" alt="文件夹"><a href="./" title="全国外围社区 楼凤 凤楼 北京 上海 广州 深圳 佛山 珠海 天津 杭州 成都 南京 重庆 等各大城市小姐姐信息">小姐姐信息</a></h1>
 </div>
 <div class="mainBox" id="mainBox">
-    <el-container style="height: 100vh; border: 1px solid #eee">
+    <el-container style="height: 85vh; border: 1px solid #eee">
         <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
             <el-menu :default-openeds="['province']">
                 <el-submenu index="province">
@@ -55,10 +56,11 @@
             </el-menu>
         </el-aside>
 
-        <el-container>
-            <el-main>
+        <el-container >
+            <el-main style="height:80vh">
                 <el-table :data="tableData" style="width: 100%"
-                          height="80vh" :header-cell-style="{ 'text-align': 'center' }"
+                          height="100vh"
+                           :header-cell-style="{ 'text-align': 'center' }"
                           :cell-style="{ 'text-align': 'center' }">
                     <el-table-column prop="Name" label="个人信息" width="320">
                     </el-table-column>
@@ -94,6 +96,8 @@
                     </el-table-column>
                 </el-table>
             </el-main>
+            <el-footer style="text-align: center">host by  <el-link type="success" href="https://nba98.vercel.app/" target="_blank">nba98</el-link>
+            </el-footer>
         </el-container>
     </el-container>
 </div>

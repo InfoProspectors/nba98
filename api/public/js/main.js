@@ -53,14 +53,14 @@ instance.interceptors.response.use(
 
 async function getLocation(Location) {
     return instance({
-        url: `json/location/${Location}.json`,
+        url: encodeURI(`json/location/${Location}.json`),
         method: 'get',
     })
 }
 
 async function queryInfo(type, name) {
     return instance({
-        url: `json/${type}/${name}.json`,
+        url: encodeURI(`json/${type}/${name}.json`),
         method: 'get',
     })
 }
@@ -80,6 +80,9 @@ new Vue({
     },
     methods: {
         async _getLocation() {
+            console.log("\n".concat(" %c python 是世界上最好的爬虫框架", " | ", "https://www.python.org/"), "color: #fadfa3; background: #030307; padding:5px 0;")
+            console.log("\n %c vue 是世界上最好的语言" + "%c https://vuejs.org/", "color:#fff;background:linear-gradient(90deg,#448bff,#44e9ff);padding:5px 0;", "color:#000;background:linear-gradient(90deg,#44e9ff,#ffffff);padding:5px 10px 5px 0px;");
+
             const area = await getLocation('area')
             this.area = area
             const city = await getLocation('city')
