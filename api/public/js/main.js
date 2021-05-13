@@ -11,7 +11,7 @@ const handleData = ({data}) => {
  */
 const instance = axios.create({
     baseURL: 'https://cdn.jsdelivr.net/gh/first-love-cloud/nba98@master',
-    timeout: 3000,
+    timeout: 1000 * 10 * 3,
     headers: {
         'Content-Type': 'application/json; charset=utf-8',
     },
