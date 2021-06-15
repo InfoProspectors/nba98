@@ -38,6 +38,12 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.token }}
       with:
         args: nba98
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v2.5.0
+      env:
+        ACTIONS_DEPLOY_KEY: ${{secrets.token}}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: api/public
     - name: Sync to Gitee
       uses: wearerequired/git-mirror-action@master
       env:
