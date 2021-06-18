@@ -39,7 +39,7 @@ def _openjson(dirName, filepath):
             for element in province:
                 if (element not in provinceunique):
                     provinceunique.append(element)
-            message2qmsg(','.join(provinceunique),'province')
+            # message2qmsg(','.join(provinceunique),'province')
             # _requests(provinceunique,'province')
         elif 'city' in filepath:
             for i in load_dict:
