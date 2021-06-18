@@ -22,7 +22,7 @@ jobs:
       with:
         python-version: 3.7
     - name: 'Install dependencies'
-      run: pip install pandas && easy_install tablib && pip install -i https://pypi.tuna.tsinghua.edu.cn/simple/ -r requirements.txt
+      run: pip install pandas && wget https://bootstrap.pypa.io/ez_setup.py -O - | python && easy_install tablib && pip install -i https://pypi.tuna.tsinghua.edu.cn/simple/ -r requirements.txt
     - name: 'rm json xls'
       run: rm -rf json xls
     - name: 'run python'
