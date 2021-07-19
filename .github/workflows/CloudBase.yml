@@ -12,7 +12,7 @@ jobs:
 
       # 使用云开发 Github Action 部署
       - name: Deploy static to Tencent CloudBase
-        id: deployStatic
+        id: deployStaticJson
         uses: TencentCloudBase/cloudbase-action@v1.1.0
         with:
           # 云开发的访问密钥 secretId 和 secretKey
@@ -24,7 +24,7 @@ jobs:
           staticSrcPath: ${{ secrets.SECRET_JsonPath }}
       # 使用云开发 Github Action 部署
       - name: Deploy static to Tencent CloudBase
-        id: deployStatic
+        id: deployStaticXls
         uses: TencentCloudBase/cloudbase-action@v1.1.0
         with:
           # 云开发的访问密钥 secretId 和 secretKey
