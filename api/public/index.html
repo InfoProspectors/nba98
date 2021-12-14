@@ -122,8 +122,8 @@
           </el-form-item> -->
           <el-form-item label="Pic1">
             <span>
-              <el-image style="width: 100px; height: 100px" v-if='dialogData.Pic1' :src="dialogData.Pic1"
-                :preview-src-list="[`${dialogData.Pic1}`]">>
+              <el-image style="width: 100px; height: 100px" v-if='dialogData.Pic1' :src="fileServer+dialogData.Pic1"
+                :preview-src-list="[`${fileServer+dialogData.Pic1}`]">>
               </el-image>
             </span>
           </el-form-item>
@@ -211,11 +211,11 @@
                   </el-table-column>
                   <el-table-column prop="Phone" label="个人照片">
                     <template slot-scope="scope">
-                      <el-image style="width: 100px; height: 100px" v-if='scope.row.Pic1' :src="scope.row.Pic1"
-                        :preview-src-list="[`${scope.row.Pic1}`]">
+                      <el-image style="width: 100px; height: 100px" v-if='scope.row.Pic1' :src="fileServer+scope.row.Pic1"
+                        :preview-src-list="[`${fileServer+scope.row.Pic1}`]">
                       </el-image>
-                      <el-image style="width: 100px; height: 100px" v-if='scope.row.Pic2' :src="scope.row.Pic2"
-                        :preview-src-list="[`${scope.row.Pic2}`]">>
+                      <el-image style="width: 100px; height: 100px" v-if='scope.row.Pic2' :src="fileServer+scope.row.Pic2"
+                        :preview-src-list="[`${fileServer+scope.row.Pic2}`]">>
                       </el-image>
                     </template>
                   </el-table-column>

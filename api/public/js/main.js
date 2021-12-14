@@ -146,6 +146,7 @@ new Vue({
   },
   data() {
     return {
+      fileServer:'http://nba98.top',
       options: [],
       areaSelectData: regionDataPlus, // options绑定的数据就是引入的 provinceAndCityData
       selectedOptions: [],
