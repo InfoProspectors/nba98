@@ -129,8 +129,8 @@
           </el-form-item>
           <el-form-item label="Pic2">
             <span>
-              <el-image style="width: 100px; height: 100px" v-if='dialogData.Pic2' :src="dialogData.Pic2"
-                :preview-src-list="[`${dialogData.Pic2}`]">>
+              <el-image style="width: 100px; height: 100px" v-if='dialogData.Pic2' :src="fileServer+dialogData.Pic2"
+                :preview-src-list="[`${fileServer+dialogData.Pic2}`]">>
               </el-image>
             </span>
           </el-form-item>
